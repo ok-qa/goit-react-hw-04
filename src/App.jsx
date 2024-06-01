@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import { getPhotosByQuery } from "./api/api-service";
+import SearchBar from "./components/SearchBar/SearchBar";
+import ImageGallery from "./components/ImageGallery/ImageGallery";
+import ErrorMessage from "./components/ErrorMsg/ErrorMsg";
 
 function App() {
-  const [count, setCount] = useState(0)
+const [images, setImages] = useState([]);
+
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState(false);
+
+
+  // useEffect(() => {
+  //   const fetchPhotos = async () => {
+  //     const result = await getPhotosByQuery("nature");
+  //     console.log(result);
+  //   };
+  //   fetchPhotos();
+  // }, []);
+
+  const handleSearch = async (query)=>{
+    console.log(query);
+    try{
+      setImages([]);
+      setIsLoading (true);
+      const data = await getPhotosByQuery(query)
+      setImages(data.result);
+    }catch(e){
+      setError(true)
+      console.error(e);
+    }finally{
+      setIsLoading(false)
+    }
+
+  }
+console.log(images);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <SearchBar
+        onSearch={handleSearch}
+      />
+      <ImageGallery images={images}/>
+      <p>testData</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
