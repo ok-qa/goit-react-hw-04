@@ -9,13 +9,13 @@ export const getPhotosByQuery = async (searchQuery, currentPage) => {
       client_id: KEY,
       query: searchQuery,
       page: currentPage,
-      per_page: 10,
+      per_page: 12,
       orientation: "landscape",
     },
   });
 
   return {
     result: response.data.results,
-    total: response.data.total,
+    totalPages: response.data.total_pages,
   };
 };
