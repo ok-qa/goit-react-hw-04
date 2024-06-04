@@ -27,7 +27,7 @@ const ImageModal = ({ isOpenModal, closeModal, selectedImgSrc }) => {
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
       >
-        <img width="650" src={selectedImgSrc} alt="img" />
+        <img width="850" src={selectedImgSrc} alt="img" />
       </Modal>
     </div>
   );
