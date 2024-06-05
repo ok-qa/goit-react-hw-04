@@ -5,12 +5,13 @@ const ImageCard = ({ data, setModalImgSrc }) => {
     setModalImgSrc(data.urls.full);
   };
   return (
-    <div className={css.container} onClick={handleClick}>
+    <div className={css.container}>
       <img
         className={css.img}
         key={data.id}
         src={data.urls.small}
         alt={data.alt_description}
+        onClick={handleClick}
       />
     </div>
   );

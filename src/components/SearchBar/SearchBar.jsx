@@ -6,7 +6,7 @@ const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     const form = e.target;
     const value = e.target.elements.text.value;
-    onSearch(value);
+
     if (value.length === 0) {
       toast.error("Uh oh! The searchfield is empty...", {
         style: {
@@ -17,6 +17,7 @@ const SearchBar = ({ onSearch }) => {
       });
       return;
     }
+    onSearch(value);
     form.reset();
   };
   return (
